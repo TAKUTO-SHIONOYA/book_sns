@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <h1>Userを作成します</h1>
+    <table>
+      <form action="{& url 'usercreate' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <tr>
+          <td></td><td><input type="submit"value="click"></td>
+        </tr>
+
+      </form>
+    </table>
+  </body>
+</html>
