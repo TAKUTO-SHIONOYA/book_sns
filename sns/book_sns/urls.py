@@ -7,9 +7,9 @@ urlpatterns = [
 #path('login',views.login, name='login')
 path('login/', views.loginView.as_view(), name="login"),
 path('logout/', views.logoutView.as_view(), name="logout"),
-path('top/', views.TopView.as_view(), name="top"),
+path('', views.TopView.as_view(), name="top"),
 path('userpage/', views.userpage, name='userpage'),
-path('create/', views.create, name='usercreate'),
+path('create/', views.createView.as_view(), name='usercreate'),
 
 
 

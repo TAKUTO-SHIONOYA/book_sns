@@ -3,17 +3,19 @@
 <html lang="ja" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>{{title}}</title>
+    <title>create</title>
+    <meta name="viewport" content="width=device-width",initial-scale=1>
   </head>
   <body>
     <h1>Userを作成します</h1>
     <table>
-      <form action="{& url 'usercreate' %}" method="post">
+      <form action="{% url 'usercreate' %}" method="post">
         {% csrf_token %}
-        {{ form.as_table }}
+        {{ form.as_p}}
         <tr>
           <td></td><td><input type="submit"value="click"></td>
         </tr>
+        <p>{{message}}</p>
 
       </form>
     </table>

@@ -4,9 +4,13 @@ from django.http import HttpResponse
 from .models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,CreateView
 from . import forms
 from .forms import UserCreateForm
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
 # Create your views here.
 class loginView(LoginView):
     form_class = forms.LoginForm
@@ -19,11 +23,12 @@ class TopView(TemplateView):
     template_name = "book_sns/top.html"
 
 
-
+@login_required
 def userpage(request):
 
     if request.user.is_authenticated:
         username = str(request.user)
+
 
         #request.session['name'] = request.POST['name']
         context = {'username': username}
@@ -64,18 +69,8 @@ def create(request):
             return render(request,message)
     return(request,)"""
 
-def create(request):
-    params = {
-    'title': 'create',
-    'form': UserCreateForm(),
+class createView(CreateView):
 
-    }
-
-    if (request.method == 'POST'):
-        name = request.POST['name']
-        mail = request.POST['mail']
-        password = request.POST[password]
-        user = User(name=name,mail=mail,password=password)
-        User.save()
-        return redirect(to='/top')
-    return render(request, 'book_sns/user_create.html', params)
+    form_class = UserCreationForm
+    template_name = "book_sns/user_create.html"
+    success_url = reverse_lazy("top")
